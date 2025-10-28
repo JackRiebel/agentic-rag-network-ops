@@ -1,0 +1,6 @@
+[submodule "mcp-meraki"]
+	path = mcp-meraki
+	url = https://github.com/JackRiebel/mcp-meraki.git
+[submodule "mcp-thousandeyes"]
+	path = mcp-thousandeyes
+	url = https://github.com/JackRiebel/ThousandEyes_MCP.git
