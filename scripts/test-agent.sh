@@ -1,4 +1,1 @@
-podman exec agent python -c "
-from agent import run
-print(run('Why is Paris office slow?'))
-"
+podman exec agent python -c "from agent.agent import run_query; print(run_query('Why is video choppy in Paris office?'))"
