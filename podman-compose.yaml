@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.10.0
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    command: ["./qdrant"]
+
+  mcp-rag-server:
+    build: ./mcp-rag-server
+    ports:
+      - "8001:8000"
+    environment:
+      - QDRANT_HOST=qdrant
+    depends_on:
+      - qdrant
+    volumes:
+      - ./mcp-rag-server/app:/app
+
+  agent:
+    build: ./agent
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - RAG_MCP_URL=http://mcp-rag-server:8000
+    depends_on:
+      - mcp-rag-server
+    volumes:
+      - ./agent:/app
+
+volumes:
+  qdrant_data:
